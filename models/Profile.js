@@ -1,13 +1,11 @@
-const {userSchema} = require('./user');
-const Joi = require('joi');
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-
-const profileSchema = new mongoose.Schema({
-
+// Create Schema
+const ProfileSchema = new Schema({
   user: {
-    type: userSchema,
-    required: true
+    type: Schema.Types.ObjectId,
+    ref: 'users'
   },
   handle: {
     type: String,
@@ -117,32 +115,6 @@ const profileSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   }
-  });
-  
-  
-  const Profile = mongoose.model('Profile', profileSchema);
-  
-  function validateProfile(profile) {
-    const schema = {
-        
-    userId: Joi.objectId().required(),
-      handle: Joi.string().max(40).required(),
-      company: Joi.string(),
-      website: Joi.string(),
-      location: Joi.string(),
-      status: Joi.string().required(),
-      skills: Joi.array(),
-      bio: Joi.string(),
-      githubusername: Joi.string(),
-      experience: Joi.array(),
-      education: Joi.array(),
-      social: Joi.object(),
-      date: Joi.date(),
-    };
-  
-    return Joi.validate(profile, schema);
-  }
-  
-  exports.Profile = Profile; 
-  exports.validate = validateProfile;
-  exports.profileSchema = profileSchema;
+});
+
+module.exports = Profile = mongoose.model('profile', ProfileSchema);

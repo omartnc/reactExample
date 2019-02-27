@@ -1,13 +1,11 @@
-const {userSchema} = require('./user');
-const Joi = require('joi');
 const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-
-const postSchema = new mongoose.Schema({
-
+// Create Schema
+const PostSchema = new Schema({
   user: {
-    type: userSchema,
-    required: true
+    type: Schema.Types.ObjectId,
+    ref: 'users'
   },
   text: {
     type: String,
@@ -16,59 +14,43 @@ const postSchema = new mongoose.Schema({
   name: {
     type: String
   },
+  avatar: {
+    type: String
+  },
   likes: [
     {
-        user: {
-            type: userSchema,
-            required: true
-          }
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: 'users'
+      }
     }
   ],
   comments: [
     {
-        user: {
-            type: userSchema,
-            required: true
-          },
-          text:{
-              type:String,
-              required:true
-          },
-           name: {
-            type: String,
-            required: true,
-            minlength: 5,
-            maxlength: 50
-          },
-          date:{
-              type:Date,
-              default:Date.now
-          }
+      user: {
+        type: Schema.Types.ObjectId,
+        ref: 'users'
+      },
+      text: {
+        type: String,
+        required: true
+      },
+      name: {
+        type: String
+      },
+      avatar: {
+        type: String
+      },
+      date: {
+        type: Date,
+        default: Date.now
+      }
     }
   ],
   date: {
     type: Date,
     default: Date.now
   }
-  });
-  
-  
-  const Post = mongoose.model('Post', postSchema);
-  
-  function validatepost(post) {
-    const schema = {
-        
-    userId: Joi.objectId().required(),
-      text: Joi.string().required(),
-      name: Joi.string(),
-      likes: Joi.array(),
-      comments: Joi.array(),
-      date: Joi.date(),
-    };
-  
-    return Joi.validate(post, schema);
-  }
-  
-  exports.Post = Post; 
-  exports.validate = validatepost;
-  exports.postSchema = postSchema;
+});
+
+module.exports = Post = mongoose.model('post', PostSchema);
