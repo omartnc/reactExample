@@ -4,7 +4,6 @@ const config = require('config');
 const bcrypt = require('bcryptjs');
 const _ = require('lodash');
 const {User, validate} = require('../models/user');
-const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 const winston=require('winston');
