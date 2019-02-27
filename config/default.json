@@ -1,4 +1,4 @@
 {
   "jwtPrivateKey": "",
-  "db": "mongodb://localhost/vidlydb"
+  "db": "mongodb://localhost/react_example_db"
 }
