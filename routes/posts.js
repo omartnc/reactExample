@@ -29,7 +29,7 @@ router.get("/", [auth], async (req, res) => {
     let post = new Post({
       user: user,
       text: req.body.text,
-      name: req.body.name,
+      name: req.body.name, 
       likes: req.body.likes,
       comments: req.body.comments
     });
